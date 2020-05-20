@@ -13,3 +13,5 @@ closeButton.addEventListener('click', e => {
 
     mobileMenu.classList.remove('open-nav');
 });
+
+hljs.initHighlightingOnLoad();

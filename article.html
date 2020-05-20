@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedro Peralta</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,200;0,400;0,700;1,400&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <header class="home-header">
+        <a class="logo" href="/">Pedro.</a>
+        <nav class="navigation">
+            <a id="mobile-menu-button" class="mobile-menu-button" href="#">
+                <i class="fas fa-bars"></i>
+            </a>
+            <ul id="menu">
+                <li>
+                    <a id="mobile-menu-close" href="#"><i class="fas fa-times"></i></a>
+                </li>
+                <li>
+                    <a href="/">Inicio</a>
+                </li>
+                <li>
+                    <a href="#">Repo</a>
+                </li>
+                <li>
+                    <a href="#">Pedro</a>
+                </li>
+                <li>
+                    <a href="#">Contacto</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="home-hero">
+        <figure class="home-hero-image">
+            <img src="media/imagen-principal.png" srcset="media/imagen-principal-movil.jpg 600w, media/imagen-principal-tablet.jpg 1000w, media/imagen-principal.png 1920w" alt="Cómo crear una web en Django - Paso a paso [SEGUNDA PARTE]">
+        </figure>
+
+        <div class="home-hero-content article-hero-content">
+            <h1>Cómo crear una web en Django - Paso a paso [SEGUNDA PARTE]</h1>
+            <a href="#">
+                <p class="hero-post-category">Python</p>
+            </a>
+        </div>
+    </div>
+
+    <main class="article-main">
+        <div class="article-data">
+            <img src="media/avatar.png" alt="Imagen de Pedro M. Peralta">
+            <div class="article-data-author-date">
+                <p class="article-data-author">Pedro M. Peralta</p>
+                <p class="article-data-date"><i class="fas fa-calendar-alt"></i>16/04/2019 16:30</p>
+            </div>
+        </div>
+
+        <article class="article-content">
+            <p>Ya estamos en la segunda parte de este tutorial. El anterior artículo sirvió para que aprendieses a instalar Python a través de la suite de Anaconda. También configuramos un entorno virtual para la web y creamos y configuramos el proyecto.</p>
+            <p>Por otra parte, ahora te enseñaré cómo <b>funciona una base de datos</b> de una manera más sencilla. Y no solo eso, también la <b>creación de vistas</b> para la aplicación, es decir, aquello que se verá en la página web y también lo que interactúa dinámicamente.</p>
+            <p><i>* NOTA: No te preocupes si tienes algún problema con el código. Te dejaré un enlace hacia mi github con el proyecto final para que lo puedes comprobar con calma. De esta manera, será más sencillo para ti encontrar donde está el error.</i></p>
+            
+            <h2>Base de datos</h2>
+            <h3>¿Qué es una base de datos?</h3>
+            <p>Partamos de una pequeña explicación sobre este hecho. <b>Una base de datos no es más que un archivo donde se almacenan los datos de un sitio web dinámico</b>. Python utiliza SQLite como sistema de base de datos por defecto.</p>
+            <p>Las bases de datos funcionan a través del <b>lenguaje SQL</b> (Lenguaje de Peticiones Estructuradas, en castellano). Estas se dividen en distintas tablas, para mantener una estructura más coherentes de los datos.</p>
+            <p>Cada tabla tiene una función y se pueden conectar también para distintos usos. Por ejemplo, piensa en un blog; una tabla podría ser para los artículos, otra para los redactores, otra para categorías, etc.</p>
+
+            <h3>Nuestra primera tabla</h3>
+            <p>Creo que te estarás preguntando qué pienso hacer. <b>Vamos a hacer una pequeña aplicación con la que crear pequeñas notas</b>. Algo bastante simple y estéticamente bastante mejorable, pero este tutorial tratará sobre Python, no sobre HTML y CSS.</p>
+            <p>Bueno, vamos al lío.</p>
+            <p>Vamos a abrir el proyecto en Visual Studio Code. Para crear la base de datos, tenemos que abrir el archivo models.py dentro de la carpeta de nuestra aplicación.</p>
+
+            <figure>
+                <img src="media/articles/001-crear-modelo.png" alt="Creando el primer modelo de la aplicación de notas">
+                <figcaption>Creando el primer modelo de la aplicación de notas.</figcaption>
+            </figure>
+
+            <pre><code class="python">class Notas(models.Model):
+    texto = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('fecha de publicación')
+            </code></pre>
+
+            <p>No sé si entenderás el código que he puesto. Si estás empezando en programación, es muy posible que te suene a chino; no obstante, voy a desgranar que significa cada línea del código.</p>
+            <p>En primer lugar, <b>hemos creado una clase</b>. Se trata de una de las opciones que nos brinda la <b>programación orientada a objetos</b>. Cada clase tiene una funcionalidad atribuida, algo que se intenta asemejar a lo que es un objeto en la realidad.</p>
+            <p>Esta clase “hereda” los métodos y variables de la clase <i>models.Model</i>. Esto lo vamos a ver en las dos siguientes líneas.</p>
+            <p>No voy a ahondar más en este aspecto porque no es realmente importante para seguir este tutorial. Te recomiendo que tras acabarlo, si todo ha salido bien, comiences a investigar para entender completamente todo.</p>
+            <p>En este caso, el nombre de la clase será la tabla que se creará más tarde en la base de datos.</p>
+            <p>En segundo lugar, nos encontramos ante dos variables. Mediante <b>la variable texto</b> le estamos diciendo que queremos crear una columna en nuestra tabla. En este caso se trata de <b>un campo de caracteres que hemos limitado a 200</b>.</p>
+            <p>En el segundo campo, <b>vamos a definir un campo para colocar la fecha y la hora</b>. Te adelanto que será para mostrar en qué momento se creó la nota.</p>
+
+            <h3>Migraciones</h3>
+            <p>Sin embargo, esto que hemos hecho no vale para nada si no hacemos una migración. <b>Una migración no es más que trasladar los dos campos que hemos puesto a lenguaje SQL</b>, que es el utiliza SQLite.</p>
+            <p>Así que vamos a volver a la terminal.</p>
+
+            <figure>
+                <img src="media/articles/002-conda-activate.png" alt="Abriendo el terminal de Anaconda para seguir con el proyecto">
+                <figcaption>Abriendo el terminal de Anaconda para seguir con el proyecto.</figcaption>
+            </figure>
+
+            <p>Voy a recorrer de nuevo los mismos pasos que en el anterior artículo, para que no tengas ningún problema. Vamos a activar el entorno virtual, en mi caso será conda activate noteapp, en el tuyo sustituye el noteapp por el nombre de tu entorno.</p>
+            <p>El siguiente paso será navegar por el terminal hasta llegar a la carpeta con tu proyecto. En mi caso, se encuentra en un pendrive por lo que accedo de una manera bastante rápida y eficaz.</p>
+            <p>El primer paso será generar la creación de la migración de la tabla que hemos creado. Solo tienes que introducir en la terminal el comando <i>python manage.py makemigrations</i>.</p>
+
+            <figure>
+                <img src="media/articles/003-migracion.png" alt="Realizando la migración de nuestro modelo">
+                <figcaption>Realizando la migración de nuestro modelo.</figcaption>
+            </figure>
+
+            <p>Como puedes comprobar en la parte de arriba, <b>te dirá que se ha realizado una migración y pondrá el modelo que se ha utilizado</b>. Solo se trata de uno en nuestro caso, pero pueden ser muchísimos más en función de la envergadura de una aplicación.</p>
+            <p>El siguiente paso será la propia migración a la base de datos para crear la tabla. La tabla tendrá tres columnas, una con un número de identificación y las dos restantes serán las de las variables.</p>
+            <p>Tan solo introduce el comando <i>python manage.py migrate</i>.</p>
+            <p>Al igual que en la imagen superior, en tu caso podrás comprobar que no solo está realizando la migración de nuestro modelo. Django tiene su propio panel de administración por lo que está las migraciones para el funcionamiento de los usuarios.</p>
+
+            <h2>Panel de administración</h2>
+            <p>A diferencia de otros frameworks o marcos de trabajo en Python y otros lenguajes, <b>Django trae incorporado su propio panel de administración</b>, aliviando esa parte del trabajo a los programadores.</p>
+            <p>No necesitas hacer nada para activarlo, ya que se crea automáticamente con el proyecto. Debes arrancar de nuevo el servidor (<i>python manage.py runserver</i>) e introducir la dirección que te da más <i>/admin</i>.</p>
+            <p>Te encontrarás ante un formulario para iniciar sesión. El principal problema es que no podrás acceder porque todavía no se ha creado ningún usuario, así que vamos a proceder en un momento.</p>
+            
+            <figure>
+                <img src="media/articles/004-ajustes-idioma-zona.png" alt="Cambiando los ajustes de idioma y de zona horaria">
+                <figcaption>Cambiando los ajustes de idioma y de zona horaria.</figcaption>
+            </figure>
+
+            <p>Accede al archivo <i>settings.py</i> que hay en la raíz del proyecto. Es el mismo que utilizamos en la parte anterior del tutorial. Tan solo tienes que desplazar la barra hasta encontrar la misma parte que se puede observar en la imagen superior.</p>
+            <p>En <i>LANGUAGE_CODE</i>, vamos a poner <i>es-es</i>, es decir, para que se ponga en el español de España. Si eres de otro país de habla hispana, te recomiendo que busques el código de dos dígitos para tu país, que irá después del guion.</p>
+            <p>La segunda variable será <i>TIME_ZONE</i>, la zona horaria. Esta suele ser muy simple de configurar porque solo necesitamos nuestro continente y la capital del país. En mi caso, será <i>Europe/Madrid</i>, ten en cuenta que debes estar en inglés.</p>
+
+            <h3>Crear un superusuario</h3>
+            <p>Si tienes activado el servidor en el terminal, solo necesitas presionar <i>CTRL + C</i> para detenerlo.</p>
+            
+            <figure>
+                <img src="media/articles/005-crear-superusuario.png" alt="Creando nuestro administrador o superusuario.">
+                <figcaption>Creando nuestro administrador o superusuario.</figcaption>
+            </figure>
+
+            <p>Situados en el terminal, vamos a poner este código: python manage.py createsuperuser. Nos pedirá un <b>nombre de usuario</b>, <b>un correo electrónico</b> y <b>una contraseña</b>.</p>
+            <p>Como se trata solamente de una prueba local, <b>he colocado un nombre de usuario muy común y la misma contraseña</b>.</p>
+            <p>Esto en Internet es una grave problema de seguridad, pero para una prueba en un ordenador de manera local no es problema. Podrás comprobar que la propia consola te dice esto mismo.</p>
+            <p>El correo es totalmente irrelevante en este momento, por lo que podéis poner uno inventado como he hecho yo.</p>
+            <p>Espero que ya te acuerdes perfectamente cómo iniciar de nuevo el servidor. No te voy a poner más el código aunque puedes encontrarlo más arriba.</p>
+
+            <figure>
+                <img src="media/articles/006-iniciar-sesion.png" alt="Este es el formulario que te aparecerá para iniciar sesión">
+                <figcaption>Este es el formulario que te aparecerá para iniciar sesión.</figcaption>
+            </figure>
+
+            <h3>Inicia sesión</h3>
+            <p>Accede a la dirección que te proporciona el servidor seguido de barra lateral admin (<i>127.0.0.1:8000/admin</i>). Te aparece un formulario para iniciar sesión como el superior. <b>Tan solo tienes que poner el nombre de usuario y contraseña del superusuario</b>.</p>
+            <p>Si te ha ido todo bien, verás el panel de administración. Quizá te lleves un chasco porque no aparece el modelo que hemos creado antes para poner notas. Pero esto lo vamos a solucionar ahora más tarde.</p>
+            <p>Verás que aparece un apartado de autorización y autenticación.  Si pinchas en usuarios, verás el superusuario que hemos creado, pero no hay nada más. Tampoco te hace falta ahora mismo.</p>
+
+            <h3>Vincular el modelo con el panel</h3>
+            <p>Se trata de un pase muy sencillo. No te asustes.</p>
+
+            <figure>
+                <img src="media/articles/007-vincular-notas-admin.png" alt="Así debe quedar el archivo admin.py para vincular el modelo">
+                <figcaption>Así debe quedar el archivo admin.py para vincular el modelo.</figcaption>
+            </figure>
+
+            <p>Dentro de la carpeta de la aplicación, busca el archivo admin.py. Tenemos que importar primero el modelo que creamos de nuestras Notas.</p>
+
+            <pre><code class="python">from miapp.models import Notas</code></pre>
+
+            <p>El siguiente paso será vincular el modelo con el método que te ofrece Django para su panel de administración.</p>
+            <pre><code class="python"> admin.site.register(Notas)</code></pre>
+            <p>Ahora solo te queda guardar el archivo. Debe quedarte igual que se ve en la foto superior.</p>
+            <p>Si todo ha salido correctamente, tan solo necesitas recargar la pestaña donde tengas iniciado el panel de administración. Aparecerá un nuevo apartado que contendrá nuestro modelo de Notas.</p>
+            <p>No te preocupes por la duplicación de la s. Eso es algo que hace la propia programación de Django, pero que podemos solucionar en un momento.</p>
+            <p>Además, no existe todavía nada creado. Voy a <b>crear una nota de prueba</b> para que veas cómo funciona todo. Tú puedes poner lo que quieras y pulsar en <b>Grabar</b>.</p>
+
+            <figure>
+                <img src="media/articles/008-crear-nota.png" alt="Esta es la nota que he creado">
+                <figcaption>Esta es la nota que he creado.</figcaption>
+            </figure>
+
+            <p>Se trata de una prueba, así que he puesto lo que estamos haciendo ahora mismo. Aprovecha los enlaces que aparecen al lado de fecha y hora para colocar la actual y no tendrás que complicarte.</p>
+            <p>Tras grabar, comprobarás que en el panel pone <i>Notas object (1)</i>. Esto es otro problema, en realidad, porque no sabemos qué contiene esa nota, por lo que enseguida lo vamos a sustituir por el texto.</p>
+
+            <h3>La solución</h3>
+            <p>Volvemos al archivo models.py, que vamos a cambiar el problema del Notas object y del plural en el nombre de las Notas.</p>
+            <p>Bueno, en primer lugar, vamos a solucionar el problema de no tener ni la más remota idea de qué trata nuestra nota en el panel de administración. <b>Estoy hablando de sustituir el <i>Notas object</i> por el texto de la nota</b>.</p>
+
+            <figure>
+                <img src="media/articles/009-resolver-problemas-admin.png" alt="Así quedaría el método y la clase para resolver los dos problemas">
+                <figcaption>Así quedaría el método y la clase para resolver los dos problemas.</figcaption>
+            </figure>
+
+            <pre><code class="python">def __str__(self):
+    return '{}'.format(self.texto)</code></pre>
+
+            <p>Básicamente le estamos diciendo a Django que queremos que cada vez que creamos una entrada en el apartado Notas, aparezca el texto del mensaje para saber de qué se trata.</p>
+            <p>Ahora vamos con el problema del plural. Colocamos esta línea.</p>
+
+            <pre><code class="python">class Meta:
+    verbose_name_plural = 'Notas'</code></pre>
+            
+            <p>Se trata de una clase propia para sustituir ciertos metadatos. En este caso, estamos cambiando el plural que aparece para evitar que se duplique la s y así aparezcas <b>Notas</b>.</p>
+
+            <h2>Crear el archivo inicial</h2>
+            <p>Vamos a volver con los archivos HTML. Vamos a sustituir el archivo base que creamos en el artículo anterior para tener un archivo de inicio que responda a lo que queremos hacer.</p>
+            <p>Sitúate en <i>templates -> miapp</i> y crea el archivo <i>index.html</i>. Ahora volvamos al archivo base para prepararlo para importarlo en el index.</p>
+
+            <figure>
+                <img src="media/articles/010-base-html.png" alt="Hemos quitado lo que insertamos en el body y lo cambiamos por un bloque">
+                <figcaption>Hemos quitado lo que insertamos en el body y lo cambiamos por un bloque.</figcaption>
+            </figure>
+
+            <p>Dentro del body vamos a borrar la etiqueta <i>H1</i> y su contenido. Lo vamos a sustituir por este par de líneas:</p>
+
+            <pre><code class="python">{% block content %}
+{% endblock content %}</code></pre>
+
+            <p>Se trata de un bloque cuyo nombre es content. <b>Un bloque no es más que un contenedor para contenido, que se situará en la parte que hemos definido</b>. Esto, por ejemplo, sirve para meter un contenido frente a la cabecera o el pie de página.</p>
+            <p>Esto sería lo más común en cualquier sitio web. No obstante, este ejemplo es muy básico y no hemos creado ninguno de esos elementos.</p>
+            <p>De esta manera, vamos a importar el contenido del archivo <i>base</i> y aprovecharemos ese bloque para introducir el contenido que queramos.</p>
+            <p>Volvamos al archivo <i>index</i>.</p>
+
+            <figure>
+                <img src="media/articles/011-index-html.png" alt="Creamos el index.html, importamos el base html y comprobamos que funciona el bloque">
+                <figcaption>Creamos el index.html, importamos el base html y comprobamos que funciona el bloque.</figcaption>
+            </figure>
+
+            <p>Dentro del archivo <i>index</i>, vamos a colocar el siguiente contenido.</p>
+
+            <pre><code class="html">{% extends 'base.html' %}
+{% block content %}
+    &lt;h1Probando el archivo index&lt;/h1&gt;
+{% endblock content %}</code></pre>
+
+            <p>En primer lugar, <b>la primera línea sirve para extender o importar la estructura del archivo <i>base.html</i></b>. <b>La parte del bloque es idéntica</b> que lo que creamos justo antes, por lo que ya no es una novedad.</p>
+            <p>La novedad, en este caso, es que vamos a incluir algo dentro del bloque para comprobar que funciona correctamente. <b>Vamos a colocar una etiqueta <i>H1</i></b>, que se trata del título de primer nivel en <i>HTML</i>.</p>
+            <p>Pero aún nos queda algo que cambiar. Acude al archivo <i>views.py</i> y sustituye el <i>base.html</i> por <i>miapp/index.html</i>.</p>
+
+            <h3>Crear el formulario</h3>
+            <p>Vamos a borrar la etiqueta <i>H1</i> que hemos colocado antes porque no nos vale para nada ahora. Es el turno de crear el formulario para introducir las notas.</p>
+            <p>Se trata de un formulario muy simple. <b>Consta de un campo</b> para introducir el texto de la nota y <b>un botón</b> para guardarla en la base de datos.</p>
+            <p>Este es el código y lo explicó después.</p>
+
+            <figure>
+                <img src="media/articles/012-index-form.png" alt="Este es el formulario que debe aparecer en el archivo de inicio">
+                <figcaption>Este es el formulario que debe aparecer en el archivo de inicio.</figcaption>
+            </figure>
+
+            <pre><code class="html">&lt;h1&gt;Mis notas&lt;/h1&gt;
+&lt;form action="{% url 'miapp:guardar' %}" method="post"&gt;
+    {% csrf_token %}
+    &lt;input type="text" name="texto" placeholder="Inserta tu nota"&gt;
+    &lt;input type="submit" value="Agregar"&gt;
+&lt;/form&gt;</code></pre>
+
+            <p>Primero, <b>hemos cambiado el contenido del antiguo título por Mis notas</b>, algo que se asemeja a lo que de verdad vamos a hacer.</p>
+            <p><b>El siguiente paso será crear el formulario</b>. Este se compone por un etiqueta <i>form</i>, que acompañan dos atributos. El atributo <i>action</i> sirve para definir a qué enlace va a mandar la información.</p>
+            <p>En cambio, el atributo <i>method</i> no es más que el método para enviar la información. Usaremos <i>post</i> ya que transmite la información de manera más segura, ya que no pasa por la <i>URL</i>.</p>
+            <p>El código que aparece entre las llaves y los signos de porcentaje es muy importante, ya que sin él te dará error el código. Te remito a esta <a href="https://blog.evidaliahost.com/cross-site-request-forgery-csrf/" target="_blank" rel="noreferrer noopener">entrada de un blog de una empresa de hosting</a> que te explica qué es el CSRF.</p>
+            <p><b>Ahora nos queda las otras dos etiquetas de <i>input</i></b>, que son una manera de introducir información en un formulario.</p>
+            <p>El <i>input</i> de tipo <i>text</i> es el típico campo que te puedes encontrar en un formulario de registro. En este caso, se usará para qué pongamos el contenido de nuestra nota. El atributo <i>name</i> es esencial ya que será ese el que usemos para recoger el contenido.</p>
+            <p>El segundo <i>input</i> es más sencillo, que será aquel que pincharemos para enviar el contenido. Su tipo es de <i>submit</i>, que sería enviar en inglés mientras que el <i>value</i> define lo que aparecerá visualmente en el botón.</p>
+
+            <h3>Crear la vista guardar</h3>
+            <p>El siguiente paso será crear la vista (<i>view</i>) que necesitamos para guardar la información que nos llega por el formulario. En este primer momento solo la vamos a imprimir por pantalla en la consola, para comprobar que llega correctamente.</p>
+
+            <figure>
+                <img src="media/articles/013-vista-guardar-consola.png" alt="Así quedará la vista guardar para imprimir por consola">
+                <figcaption>Así quedará la vista guardar para imprimir por consola.</figcaption>
+            </figure>
+
+            <p>Nos dirigimos al archivo <i>views.py</i>. Necesitamos importar dos métodos de algunas librerías de Django para realizar correctamente este paso.</p>
+
+            <pre><code class="python">from django.http import HttpResponseRedirect
+from django.urls import reverse</code></pre>
+
+            <p>Ahora vamos a crear el método para la vista guardar.</p>
+
+            <pre><code class="python">def guardar(request):
+    print(request.POST.get('texto'))
+    return HttpResponseRedirect(reverse('miapp:home'))</code></pre>
+
+            <p>El método request nos permite acceder a los métodos de petición <i>HTTP</i>. En este caso, estamos obteniendo la información del método <i>post</i> a través del <i>name texto</i>, que colocamos en el <i>input</i> del formulario.</p>
+            <p>Lo hemos usado dentro de un <i>print</i>, que sirve para imprimir esa información en la consola, siempre que tengamos el servidor de Django corriendo.</p>
+            <p>El método <i>HttpResponseRedirect</i> sirve para redirigir al usuario hacia una <i>URL</i> concreta. El método <i>reverse</i>, en cambio, nos permite elegir que url queremos utilizar dentro de las que tenemos configuradas.</p>
+
+            <h3>Crear la URL</h3>
+            <p>No obstante, esto no va a funcionar todavía porque no hemos creado la dirección <i>URL</i>, puedes recordar cómo pusimos la página de inicio en la parte anterior de esta guía.</p>
+
+            <figure>
+                <img src="media/articles/014-url-guardar.png" alt="Esta la url que necesitamos para que el formulario envíe la información a la vista guardar">
+                <figcaption>Esta la url que necesitamos para que el formulario envíe la información a la vista guardar.</figcaption>
+            </figure>
+
+            <p>Solo necesitamos colocar otra <i>URL</i>, al igual que hicimos con la vista de inicio.</p>
+
+            <pre><code class="python">path('guardar', views.guardar, name='guardar'),</code></pre>
+
+            <p>Te recuerdo para que sirve cada parámetro.</p>
+            <p>El primero es la <i>URL</i>, aquello que aparece justo después del <i>127.0.0.1:8000</i> en el navegador, aunque no se va a ver. El segundo parámetro es la referencia hacia la vista guardar y el tercero el nombre que le damos a la <i>URL</i> para vincularla.</p>
+
+            <h3>Pruébalo</h3>
+            
+            <figure>
+                <img src="media/articles/015-formulario-web.png" alt="Así se debe ver el formulario en tu navegador">
+                <figcaption>Así se debe ver el formulario en tu navegador.</figcaption>
+            </figure>
+
+            <p>Te debería aparecer algo como la imagen superior. Solo tienes que probar a introducir alguna nota de prueba en el campo y pinchar en Guardar.</p>
+
+            <figure>
+                <img src="media/articles/016-print-vista-guardar.png" alt="Deberías poder ver en la antepenúltima línea que aparece aquello que inserte en el formulario">
+                <figcaption>Deberías poder ver en la antepenúltima línea que aparece aquello que inserte en el formulario.</figcaption>
+            </figure>
+
+            <p>Verás que yo he puesto Aprender Django para ver que todo funcionaba bien. Y así ha sido.</p>
+
+            <h2>Hora de grabarlo en la base de datos</h2>
+            <p><b>Todo funciona correctamente</b>, pero de nada nos sirve si no guardamos la nota en algún lado. Como no puede ser de otra manera se trata de la base de datos.</p>
+            <p>Antes de editar la vista guardar, tenemos que importar el módulo de <i>timezone</i> para que nos ponga el momento exacto en que pinchemos en guardar.</p>
+            <p>Por otro lado, también tenemos que importar el modelo de <i>Notas</i> para conectar con lo que nos llega por el formulario para guardarlo en la base de datos.</p>
+
+            <pre><code class="python">from django.utils import timezone
+from miapp.models import Notas</code></pre>
+
+            <figure>
+                <img src="media/articles/017-vista-guardar-completa.png" alt="La vista guardar con las variables y el método para guardar en la base de datos">
+                <figcaption>La vista guardar con las variables y el método para guardar en la base de datos.</figcaption>
+            </figure>
+            
+            <p>El método guardar debería quedar así:</p>
+
+            <pre><code class="python">def guardar(request):
+    texto = request.POST.get('texto')
+    fecha = timezone.now()
+    Notas.objects.create(texto=texto, pub_date=fecha)
+    return HttpResponseRedirect(reverse('miapp:home'))</code></pre>
+
+            <p>En lugar de imprimir lo que nos llega por texto, <b>lo guardamos en una variable con el mismo nombre</b>. He creado <b>otra variable para colocar la fecha y hora actual</b>.</p>
+            <p>Ya que hemos importado nuestro modelo de notas, <b>tenemos que crear insertar una fila en la tabla</b>. En este caso, lo que hacemos es asignar el valor que tienen las variables a los campos que creamos.</p>
+            <p>La última línea se queda igual que en el caso anterior.</p>
+            <p>Si quieres puedes probar a insertar alguna nota a través del formulario. En el siguiente epígrafe nos vamos a encargar de enseñarla en la web.</p>
+
+            <h2>Mostrar la información</h2>
+            <p>Nos toca volver a la vista home, es decir, la página de inicio de nuestra web para mostrar la información. <b>Vamos a utilizar el modelo de Notas para extraer la información de la base de datos</b>.</p>
+
+            <figure>
+                <img src="media/articles/018-vista-home-realizada.png" alt="Hemos actualizado la vista home para enviar la información de las notas hacia el template index">
+                <figcaption>Hemos actualizado la vista home para enviar la información de las notas hacia el template index.</figcaption>
+            </figure>
+
+            <pre><code class="python">def home(request):
+    notas = Notas.objects.order_by('pub_date').all()
+    return render(request, 'miapp/index.html', { 'notas': notas })</code></pre>
+            
+            <p><b>He creado una nueva variable que guardará una lista con los datos obtenidos del modelo de notas</b>; <i>order_by</i> es un submétodo usado para decidir cómo ordenamos los datos. En este caso, en orden descendente desde su fecha de creación.</p>
+            <p>En el render, que se encarga de renderizar la vista en la web, hemos colocado un <i>set</i> en el que establecemos la variable de notas. De esta manera, la vamos a poder utilizar en el <i>index.html</i>.</p>
+
+            <h3>Editar el index</h3>
+            <p>Volvemos al <i>index.html</i> para colocar la información que obtenemos de la base de datos.</p>
+
+            <figure>
+                <img src="media/articles/019-home-completa.png" alt="Así debe quedar el archivo index para enseñar las notas">
+                <figcaption>Así debe quedar el archivo index para enseñar las notas.</figcaption>
+            </figure>
+
+            <pre><code class="html">&lt;hr>
+&lt;ul&gt;
+    {% for nota in notas %}
+    &lt;li&gt;{{ nota.texto }} &lt;small&gt;{{ nota.pub_date }}&lt;/small&gt;&lt;/li&gt;
+    {% endfor %}
+&lt;/ul&gt;</code></pre>
+
+            <p><b>La etiqueta <i>HR</i> sirve para colocar una línea que separe el contenido</b>. Ten en cuenta que seguimos dentro del bloque content. Así conseguimos que, por un lado, este el formulario para introducir notas y, por el otro, la información de la base de datos.</p>
+            <p>Hemos colocado una lista desordenada (<i>UL</i>). Estamos utilizando un bucle tipo for para obtener por separado fila de la tabla. En este caso, por cada entrada que hayamos guardado, nos imprimirá un elemento de la lista (<i>LI</i>) distinto.</p>
+
+            <figure>
+                <img src="media/articles/020-index-hecho.png" alt="Así quedará el index. Yo he insertado otra nota más">
+                <figcaption>Así quedará el index. Yo he insertado otra nota más.</figcaption>
+            </figure>
+
+            <p>Como hemos creado dos objetos, uno a través del panel de administración y otro a través del formulario, nos saldrán dos elementos en nuestra lista desordenada.</p>
+            <p>Esta es el último punto en este pequeño tutorial sobre el funcionamiento de Django. Esto no es más que la punta del iceberg, pero te servirá para empezar a adentrarte en el mundo de la programación de sitios web.</p>
+            <p>Un cordial saludo.</p>
+            <p><i>* NOTA: <a href="https://github.com/UnusualPeter/miapp" target="_blank" rel="noreferrer noopener">Enlace a GitHub</a></i>.</p>
+        </article>
+    </main>
+
+    <footer class="home-footer">
+        <a class="logo" href="/">Pedro.</a>
+
+        <nav class="footer-menu">
+            <ul>
+                <li>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fab fa-behance"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/fc55689753.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script src="static/js/main.js"></script>
+</body>
+</html>

@@ -86,6 +86,10 @@ img {
     height: auto;
 }
 
+pre {
+    margin: 0;
+}
+
 ::selection {
     background-color: #9C27B0;
     color: #FFF;
@@ -183,6 +187,10 @@ img {
     background: #9C27B0;
 }
 
+.navigation ul li a.menu-active {
+    background-color: #9C27B0;
+}
+
 @media (min-width: 900px) {
     .home-header {
         padding: 1em 2em;
@@ -228,10 +236,23 @@ img {
         transition: color .3s;
     }
     .navigation ul li a:hover {
-        color: #9C27B0;
         background: transparent;
+        color: #9C27B0;
     }
     .navigation ul li a:hover::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: #9C27B0;
+    }
+    .navigation ul li a.menu-active {
+        background: transparent;
+        color: #9C27B0;
+    }
+    .navigation ul li a.menu-active::after {
         content: '';
         position: absolute;
         bottom: 0;
@@ -643,5 +664,139 @@ img {
 @media (min-width: 1200px) {
     .home-footer {
         padding: 1.5em 3em;
+    }
+}
+
+
+/* ARTICLE HERO */
+.article-hero-content h1 {
+    padding: .25em .5em .75em;
+    color: #FFF;
+}
+
+.article-hero-content a:first-of-type {
+    padding: 0;
+}
+
+@media (min-width: 800px) {
+    .article-main {
+        margin: 3em auto 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .article-hero-content h1 {
+        padding: .18em .3596em .5395em;
+    }
+}
+
+/* ARTICLE MAIN */
+.article-main {
+    max-width: 700px;
+    margin: 2em auto 0;
+}
+
+.article-data {
+    display: flex;
+    padding: 1em 1em 3em;
+}
+
+.article-data img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.article-data-author-date {
+    align-self: center;
+    padding-left: 1em;
+}
+
+.article-data-author {
+    color: #000;
+    font-family: 'Bitter', serif;
+    font-size: .9em;
+    font-weight: 700;
+}
+
+.article-data-date {
+    color: #888;
+    font-size: .8em;
+}
+
+.article-data-date i {
+    padding-right: .5em;
+}
+
+/* ARTICLE CONTENT */
+.article-content p {
+    padding: 0 1em;
+    margin-bottom: 2em;
+}
+
+.article-content p + h2 {
+    margin-top: 2em;
+}
+
+.article-content p + h3 {
+    margin-top: 2.5em;
+}
+
+.article-content p + ul,
+.article-content p + ol {
+    margin-top: -1.5em;
+}
+
+.article-content h2 {
+    padding: 0 .5715em;
+    margin-bottom: .5em;
+}
+
+.article-content h3 {
+    padding: 0 .6665em;
+    margin-bottom: .75em;
+    font-weight: 400;
+}
+
+.article-content ul,
+.article-content ol {
+    padding: 0 0 2em 2em;
+    margin: 0;
+}
+
+.article-content ul li,
+.article-content ol li {
+    padding-left: .75em;
+    padding-bottom: .25em;
+}
+
+.article-content figure {
+    margin-bottom: 2em;
+}
+
+.article-content figure img {
+    display: block;
+}
+
+.article-content figcaption {
+    padding: .5em 1.428em;
+    margin: 0;
+    color: #666;
+    font-size: .7em;
+    font-weight: 200;
+}
+
+.article-content pre {
+    margin-bottom: 2em;
+}
+
+.article-content code {
+    padding: 1em;
+}
+
+@media (min-width: 730px) {
+    .article-content p,
+    .article-content h2,
+    .article-content h3 {
+        padding: 0;
     }
 }
