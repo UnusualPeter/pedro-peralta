@@ -90,6 +90,49 @@ pre {
     margin: 0;
 }
 
+input {
+    display: block;
+    width: 100%;
+    padding: .5em;
+    background-color: #FFF;
+    color: #333;
+    border: 1px solid #AAA;
+    font-size: 1.2em;
+}
+
+button,
+.button {
+    padding: .5em 1em;
+    background: #9C27B0;
+    color: #FFF;
+    border: unset;
+    cursor: pointer;
+    transition: background .3s linear;
+    font-size: 1em;
+}
+
+button:hover,
+.button:hover {
+    background: #7B1FA2;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    width: 100%;
+    padding: .5em;
+    background: #FFF url('../../media/chevron-down.svg');
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: right;
+    background-origin: content-box;
+    color: #333;
+    border: 1px solid #AAA;
+    font-size: 1.2em;
+}
+
 ::selection {
     background-color: #9C27B0;
     color: #FFF;
@@ -798,5 +841,113 @@ pre {
     .article-content h2,
     .article-content h3 {
         padding: 0;
+    }
+}
+
+
+/* REPO MAIN */
+.repo-data {
+    max-width: 700px;
+    padding: 0 1em;
+    margin: 0 auto;
+}
+
+.repo-data p {
+    margin-bottom: 2em;
+}
+
+.repo-data form {
+    display: flex;
+    margin-bottom: 2em;
+}
+
+.repo-data form button {
+    font-size: 1em;
+}
+
+.repo-data form input[type="submit"] {
+    flex-basis: max-content;
+}
+
+@media (min-width: 740px) {
+    .repo-data {
+        padding: 0;
+    }
+    .repo-forms {
+        display: flex;
+        justify-content: space-between;
+    }
+    .repo-data form {
+        margin: 0;
+    }
+}
+
+@media (min-width: 900px) {
+    .repo-data {
+        padding: 2em 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .repo-data {
+        padding: 4em 0;
+    }
+}
+
+
+/* REPO PAGINATION */
+.repo-pagination {
+    max-width: 700px;
+    padding: 0 1em;
+    margin: 0;
+}
+
+.repo-pagination ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.repo-pagination ul li {
+    margin-right: .25em;
+}
+
+.repo-pagination ul li:last-of-type {
+    margin-right: 0;
+}
+
+.repo-pagination ul li a {
+    display: block;
+    padding: .5em 1em;
+    background: #9C27B0;
+    color: #FFF;
+    text-decoration: none;
+    transition: background .3s linear;
+}
+
+.repo-pagination ul li a:hover {
+    background: #7B1FA2;
+}
+
+.repo-pagination ul li .repo-pagination-current {
+    display: block;
+    padding: .5em 1em;
+    background: transparent;
+    color: #9C27B0;
+    font-weight: 700;
+}
+
+@media (min-width: 900px) {
+    .repo-pagination {
+        padding: 0 2em;
+        margin: 3em 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .repo-pagination {
+        padding: 0 3em;
+        margin: 4em 0;
     }
 }

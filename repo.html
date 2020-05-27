@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedro Peralta</title>
+    <title>Pedro Peralta - Repositorio</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/css/style.css">
@@ -20,10 +20,10 @@
                     <a id="mobile-menu-close" href="#"><i class="fas fa-times"></i></a>
                 </li>
                 <li>
-                    <a class="menu-active" href="/">Inicio</a>
+                    <a href="/">Inicio</a>
                 </li>
                 <li>
-                    <a href="repo.html">Repo</a>
+                    <a class="menu-active" href="repo.html">Repo</a>
                 </li>
                 <li>
                     <a href="pedro.html">Pedro</a>
@@ -50,11 +50,27 @@
             </a>
         </div>
     </div>
-    <main class="home-main">
-        <blockquote class="home-quote">
-            <h2 class="home-quote-phrase">Un punto y coma perdido puede ser un verdadero quebradero de cabeza</h2>
-            <p class="home-quote-person">-- Anónimo</p>
-        </blockquote>
+    <main class="home-main repo-main">
+        <div class="repo-data">
+            <h2>Repositorio</h2>
+            <p>Puedes buscar un artículo en concreto o ver las distintas categorías del blog</p>
+
+            <div class="repo-forms">
+                <form action="#" method="get">
+                    <input class="input" type="text" name="search" placeholder="Introduce tu búsqueda">
+                    <button class="button" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                <form action="#" method="get">
+                    <select class="select" name="category">
+                        <option value="python">Python</option>
+                        <option value="software">Software</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="javascript">Javascript</option>
+                    </select>
+                    <input class="button" type="submit" value="Ver categoría">
+                </form>
+            </div>
+        </div>
 
         <div class="home-grid-post">
             <article class="home-post">
@@ -122,22 +138,15 @@
             </article>
         </div>
 
-        <div class="home-author">
-            <figure>
-                <a href="pedro.html">
-                    <img src="media/avatar.png" alt="Imagen de Pedro M. Peralta">
-                </a>
-            </figure>
-
-            <div class="home-author-content">
-                <p class="home-author-name">
-                    <a href="pedro.html">Pedro M. Peralta</a>
-                </p>
-                <p class="home-author-description">
-                    <a href="pedro.html">Opositor de profesión. Aficionado a la tecnología y la programación. Periodista de
-                        cabeza y corazón.</a>
-                </p>
-            </div>
+        <div class="repo-pagination">
+            <ul>
+                <li><a href="#">&laquo;</a></li>
+                <li><span class="repo-pagination-current" href="#">1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
         </div>
     </main>
 
